@@ -1,6 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const SideBar = () => {
+	const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
+
+	if (isMenuOpen) return null; // early return
+
 	return (
 		<div className="p-2 shadow-lg col-span-1 m-2">
 			<ul>

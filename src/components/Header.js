@@ -1,15 +1,31 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+// Assers
 import HamburgerIcon from "../Asserts/HamburgerIcon.jpg";
 import YoutubeLogo from "../Asserts/Youtube.png";
 import UserIcon from "../Asserts/UserIcon.png";
 import SearchIcon from "../Asserts/SearchIcon.png";
+import { toggleMenu } from "../utils/appSlice";
 
 const Head = () => {
+	const dispatch = useDispatch();
+
+	const toggleMenuHandler = () => {
+		dispatch(toggleMenu());
+	};
+
 	return (
 		<div className="grid grid-flow-col p-5 m-2 shadow-lg">
 			<div className="flex col-span-1">
-				<img className="h-10" src={HamburgerIcon} alt="Hamburger Icon" />
-				<img className="h-10 mx-2" src={YoutubeLogo} alt="Youtube Logo" />
+				<img
+					onClick={toggleMenuHandler}
+					className="h-10 cursor-pointer"
+					src={HamburgerIcon}
+					alt="Hamburger Icon"
+				/>
+				<a href="/">
+					<img className="h-10 mx-2" src={YoutubeLogo} alt="Youtube Logo" />
+				</a>
 			</div>
 			<div className="col-span-10 px-10  flex items-center">
 				<input
