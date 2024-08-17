@@ -14,8 +14,17 @@ const VideoCard = ({ info }) => {
 			<ul>
 				<li className="font-bold py-2">{title}</li>
 				<li>{channelTitle}</li>
-				<li>{statistics.vieWCount}</li>
+				<li>{statistics.viewCount}</li>
 			</ul>
+		</div>
+	);
+};
+
+// higher order function
+export const RedBorderedVideoCard = ({ info }) => {
+	return (
+		<div className="p-1 m-1 border-4 border-black ">
+			<VideoCard info={info} />
 		</div>
 	);
 };
