@@ -124,12 +124,12 @@ const Comment = ({ data }) => {
 
 const CommentList = ({ comments }) => {
 	return comments.map((comment, index) => (
-		<div>
-			<Comment key={index} data={comment} />
+		<div key={index}>
+			<Comment data={comment} />
 			{comment?.replay && (
 				<div className="ml-5 pl-3 border border-l-black">
 					{/* Recursing CommentList */}
-					<CommentList key={index} comments={comment.replay} />
+					<CommentList comments={comment.replay} />
 				</div>
 			)}
 		</div>
