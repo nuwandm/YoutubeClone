@@ -26,8 +26,10 @@ function App() {
 	return (
 		<Provider store={store}>
 			<div className="App">
-				<Header />
-				<RouterProvider router={appRouter} />
+				<Header className="fixed top-0 left-0 w-full z-20" />
+				<div className="h-screen overflow-y-auto">
+					<RouterProvider router={appRouter} />
+				</div>
 			</div>
 		</Provider>
 	);
