@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // Assers
 import HamburgerIcon from "../Asserts/HamburgerIcon.jpg";
 import YoutubeLogo from "../Asserts/Youtube.png";
 import UserIcon from "../Asserts/UserIcon.png";
 import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
+import { cashResults } from "../utils/searchSlice";
 
 const Head = () => {
 	const dispatch = useDispatch();
@@ -13,10 +14,18 @@ const Head = () => {
 	const [searchResults, setSearchResults] = useState([]);
 	const [showResults, setShowResults] = useState(false);
 
+	const cash = useSelector((store) => store.search);
 	useEffect(() => {
 		if (!searchQuery) return;
 
-		const timer = setTimeout(() => fetchData(), 200);
+		const timer = setTimeout(() => {
+			if (cash[searchQuery]) {
+				setSearchResults(cash[searchQuery]);
+			} else {
+				console.log("api call");
+				fetchData();
+			}
+		}, 200);
 
 		return () => {
 			clearTimeout(timer);
@@ -26,7 +35,13 @@ const Head = () => {
 	const fetchData = async () => {
 		const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
 		const json = await data.json();
+		console.log(json);
 		setSearchResults(json[1]);
+		dispatch(
+			cashResults({
+				[searchQuery]: json[1],
+			})
+		);
 	};
 
 	const toggleMenuHandler = () => {
